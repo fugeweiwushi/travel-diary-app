@@ -32,7 +32,7 @@ export default function AdminLoginPage() {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/admin/login', {
+      const res = await fetch('http://localhost:5000/api/admin/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +44,11 @@ export default function AdminLoginPage() {
 
       if (res.ok) {
         localStorage.setItem('adminToken', data.token);
-        localStorage.setItem('adminUser', JSON.stringify(data.user)); // Store admin user info
+        
+        const adminInfo = { id: data.id, username: data.username, nickname: data.nickname, role: data.role };
+        localStorage.setItem('adminUser', JSON.stringify(adminInfo)); // Store admin user info
+
+
         router.push('/admin/dashboard'); // Redirect to admin dashboard
       } else {
         setError(data.message || '登录失败，请检查您的凭据。');

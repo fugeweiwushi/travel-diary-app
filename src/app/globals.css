@@ -85,3 +85,17 @@
   }
 }
 
+
+
+@layer base {
+  input,
+  textarea {
+    color: #111111 !important; /* Force text color to be very dark for light mode */
+    /* @apply text-black dark:text-white; */ /* Reverted this due to issues */
+  }
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-gray-500 dark:text-gray-400;
+  }
+}
+
