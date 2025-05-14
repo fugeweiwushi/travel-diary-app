@@ -161,7 +161,13 @@ export default function AdminDashboardPage() {
         throw new Error(errData.message || '获取游记列表失败');
       }
       const data = await res.json();
-      setDiaries(data);
+      if (data && data.diaries) {
+        setDiaries(data.diaries);
+      } else {
+        setDiaries([]); // Set to empty array if data.diaries is not available
+        console.error("Fetched data does not contain a 'diaries' array:", data);
+      }
+
     } catch (err) {
       console.error("Fetch admin diaries error:", err);
       setError(err.message || '加载游记数据时发生错误。');
